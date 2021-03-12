@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+
+  hd-idle:
+    build: ..
+    container_name: hd-idle
+    restart: "no"
