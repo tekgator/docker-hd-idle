@@ -35,7 +35,7 @@ docker run -d \
   tekgator/docker-hd-idle:latest
 ``` 
 
-On first start of the container it will create a config file in the provided volume. Make adjustments as described in the `hd-idle` [repository](https://github.com/adelolmo/hd-idle]) and restart the container afterwards to apply the changes.
+On first start of the container it will create a config file in the provided volume. Make adjustments as described in the `hd-idle` [repository](https://github.com/adelolmo/hd-idle) and restart the container afterwards to apply the changes.
 
 
 #### Configuration option 2: Setting environment variables
@@ -44,7 +44,7 @@ On first start of the container it will create a config file in the provided vol
 docker run -d \
   --name hd-idle \
   -e IDLE_TIME='0' # Optional: set default stand-by for all disks, e.g. 0 for turn off
-  -e DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711' # 
+  -e DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711'
   -e DISK_CMD1='scsi' # Optional (default ATA): mode on how to send HDD into stand-by, see hd-idle doc
   -e IDLE_TIME1='900' # Optional (default 600s): if disk is idle 900s go into stand-by
   -e DISK_ID2='/dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712'
