@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+
+  hd-idle:
+    build: ..
+    container_name: hd-idle
+    environment:
+      IDLE_TIME: 0
+      DISK_ID1: /dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711
+      DISK_CMD1: SCSI
+      IDLE_TIME1: 30
+      DISK_ID2: /dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712
+      IDLE_TIME2: 60
+      DISK_CMD2: ATA
+    restart: "no"
+    

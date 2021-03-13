@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+
+  hd-idle:
+    build: ..
+    container_name: hd-idle
+    environment:
+    volumes:
+      - ./config:/config
+    restart: "no"
+    
