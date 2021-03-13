@@ -1,26 +1,5 @@
 # build image
-FROM debian:buster-slim as build
-
-WORKDIR /src
-
-# Install required build packages
-RUN \
-  apt-get update && \
-  apt-get install -y --no-install-recommends curl ca-certificates debhelper build-essential
-
-COPY hd-idle-1.05.tgz /src/hd-idle.tgz
-
-# download and unpack hd-idle
-RUN  \ 
-  cd /src && \
-  # curl -o hd-idle.tgz -L https://sourceforge.net/projects/hd-idle/files/hd-idle-1.05.tgz && \
-  tar -xzvf hd-idle.tgz && \
-  cd hd-idle && \
-  dpkg-buildpackage
-
-
-# binary image
-FROM debian:buster-slim AS bin
+FROM debian:buster-slim
 
 ENV \
   APP_PATH="/app" \
@@ -28,15 +7,15 @@ ENV \
 
 # Install required packages
 RUN \
-  apt-get update && apt-get install -y --no-install-recommends dumb-init hdparm htop && \
+  apt-get update && apt-get install -y --no-install-recommends dumb-init curl ca-certificates htop && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-# install hd-idle
-COPY --from=build /src/*.deb /tmp/
+# Install hd-idle
 RUN \
   cd /tmp && \
-  dpkg -i hd-idle_*.deb && \
+  curl -o hd-idle.deb -L https://github.com/adelolmo/hd-idle/releases/download/v1.13/hd-idle_1.13_amd64.deb && \
+  dpkg -i *.deb && \
   rm -rf /tmp/* /var/tmp/*
 
 # Copy local files to image and allow read and execution of all scripts
