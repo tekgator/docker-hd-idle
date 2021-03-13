@@ -8,7 +8,7 @@ Bundle `hd-idle` application to run in a docker environment.
 
 The goal of this docker image is to make the use of `hd-idle` an easy. The configuration of the application can either be done via environment variables or via a config file in a mounted volume.
 
-As an implemantation for `hd-idle` I have choosen [adelolmo's](https://github.com/adelolmo) version over the original [hd-idle](http://hd-idle.sourceforge.net/]) version, just because it implements more features and apperantly more logging which is nice to have in a docker environment.
+As an implemantation for `hd-idle` I have choosen [adelolmo's](https://github.com/adelolmo) version over the original [hd-idle](http://hd-idle.sourceforge.net) version, just because it implements more features and apperantly more logging which is nice to have in a docker environment.
 
 For any configuartion topics concerning `hd-idle` I recommend visiting *adelolmo's* repository as you can find a good documentation there.
 
