@@ -12,7 +12,7 @@ As an implemantation for `hd-idle` I have choosen [adelolmo's](https://github.co
 
 For any configuartion topics concerning `hd-idle` I recommend visiting *adelolmo's* repository as you can find a good documentation there.
 
-`hd-idle` repository: [adelolmo/hd-idle](https://github.com/adelolmo/hd-idle])
+`hd-idle` repository: [adelolmo/hd-idle](https://github.com/adelolmo/hd-idle)
 
 ## Run
 
