@@ -21,7 +21,6 @@ For any configuartion topics concerning `hd-idle` I recommend visiting *adelolmo
 ```bash
 docker run -d \
   --name hd-idle \
-  --restart unless-stopped \
   tekgator/docker-hd-idle:latest
 ``` 
 
