@@ -8,11 +8,15 @@ Bundle `hd-idle` application to run in a docker environment.
 
 The goal of this docker image is to make the use of `hd-idle` an easy. The configuration of the application can either be done via environment variables or via a config file in a mounted volume.
 
-As an implemantation for `hd-idle` I have choosen [adelolmo's](https://github.com/adelolmo) version over the original [hd-idle](http://hd-idle.sourceforge.net) version, just because it implements more features and apperantly more logging which is nice to have in a docker environment.
+For any configuartion topics concerning `hd-idle` I recommend visiting the **[Sourceforge page](http://hd-idle.sourceforge.net/)** of the project as you can find documentation there.
 
-For any configuartion topics concerning `hd-idle` I recommend visiting *adelolmo's* repository as you can find a good documentation there.
+Many thanks to [Christina Mueller](https://sourceforge.net/u/cjmueller/profile/).
 
-`hd-idle` repository: [adelolmo/hd-idle](https://github.com/adelolmo/hd-idle)
+## Word of cautions
+
+First of all please read the word of cautions in the `hd-idle` **[documentation](http://hd-idle.sourceforge.net/)**.
+
+In order to set the disks in stand-by the container needs to be in privileged mode and the /dev path has to be forwarded to the container. Of course that could be a potential security risk. For me personally, I can live with it in my homelab setup.
 
 ## Run
 
@@ -21,6 +25,8 @@ For any configuartion topics concerning `hd-idle` I recommend visiting *adelolmo
 ```bash
 docker run -d \
   --name hd-idle \
+  --privileged \
+  -v /dev:/dev \
   tekgator/docker-hd-idle:latest
 ``` 
 
@@ -31,23 +37,25 @@ This will run the container with default settings, no configuration possible. Al
 ```bash
 docker run -d \
   --name hd-idle \
-  -v /host_machine/hd-idle:/config
+  --privileged \
+  -v /dev:/dev \
+  -v /path_to_config/hd-idle:/config \
   tekgator/docker-hd-idle:latest
 ``` 
 
-On first start of the container it will create a config file in the provided volume. Make adjustments as described in the `hd-idle` [repository](https://github.com/adelolmo/hd-idle) and restart the container afterwards to apply the changes.
-
+On first start of the container it will create a config file in the provided volume. Make adjustments as described in the `hd-idle` [documentation](http://hd-idle.sourceforge.net/) and restart the container afterwards to apply the changes.
 
 #### Configuration option 2: Setting environment variables
 
 ```bash
 docker run -d \
   --name hd-idle \
-  -e IDLE_TIME='0' # Optional: set default stand-by for all disks, e.g. 0 for turn off
-  -e DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711'
-  -e DISK_CMD1='scsi' # Optional (default ATA): mode on how to send HDD into stand-by, see hd-idle doc
-  -e IDLE_TIME1='900' # Optional (default 600s): if disk is idle 900s go into stand-by
-  -e DISK_ID2='/dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712'
+  --privileged \
+  -v /dev:/dev \
+  -e IDLE_TIME='0' \ # Optional: set default stand-by for all disks, e.g. 0 for turn off
+  -e DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711' \
+  -e IDLE_TIME1='900' \ # Optional (default 600s): if disk is idle 900s go into stand-by
+  -e DISK_ID2='/dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712' \
   tekgator/docker-hd-idle:latest
 ``` 
 
@@ -55,8 +63,8 @@ Special configurations for certain disks can be made by utilizing environment va
 
 In this example we will create the following config:
 - Turn off stand-by for all disks by using **IDLE_TIME='0'**
-- Create a special stand-by rule for **DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711'** with stand-by time after 15 minutes by utilizting **IDLE_TIME1='900'**. The SCSI command set is to be used to force the HDD into stand-by **DISK_CMD1='scsi'**.
-- Create a special stand-by rule for **DISK_ID2='/dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712'** with stand-by time after 10 minutes as default time. The ATA command set is to be used to force the HDD into stand-by by default.
+- Create a special stand-by rule for **DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711'** with stand-by time after 15 minutes by utilizting **IDLE_TIME1='900'**.
+- Create a special stand-by rule for **DISK_ID2='/dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712'** with stand-by time after 10 minutes as default time.
 
 #### Configuration option 3: Utilize config file and environment together
 
@@ -70,13 +78,14 @@ A [sample](docker-compose.yml) docker-compose file can be found within the repos
   hd-idle:
     image: tekgator/docker-hd-idle:latest
     container_name: hd-idle
+    privileged: true
     environment:
       IDLE_TIME: 0
       DISK_ID1: /dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711
-      DISK_CMD1: SCSI
-      IDLE_TIME1: 30
+      IDLE_TIME1: 900
       DISK_ID2: /dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712
     volumes:
+      - /dev:/dev
       - ./config:/config
     restart: unless-stopped
 ``` 

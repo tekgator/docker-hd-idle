@@ -5,8 +5,9 @@ services:
   hd-idle:
     build: ..
     container_name: hd-idle
-    environment:
+    privileged: true
     volumes:
+      - /dev:/dev
       - ./config:/config
     restart: "no"
     

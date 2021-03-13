@@ -20,13 +20,6 @@ if [ ! -f ./hd-idle.config ]; then
         IDLE_TIMEX=${IDLE_TIMEX:-600}
 
         HD_IDLE_OPTS="$HD_IDLE_OPTS -a $DISK_IDX -i $IDLE_TIMEX"
-
-        o="DISK_CMD${i}"
-        declare -n DISK_CMDX="$o"
-
-        if [ ! -z "$DISK_CMDX" ]; then
-            HD_IDLE_OPTS="$HD_IDLE_OPTS -c ${DISK_CMDX,,}"
-        fi
     done
 
     HD_IDLE_OPTS=${HD_IDLE_OPTS## } # remove leading spaces
