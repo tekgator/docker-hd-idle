@@ -2,6 +2,9 @@
 
 Bundle `hd-idle` application to run in a docker environment.
 
+- Maintained by [Patrick Weiss](https://github.com/tekgator)
+- Problems and issues can be filed on the [Github repository](https://github.com/tekgator/docker-hd-idle/issues)
+
 ## Description
 
 `hd-idle` is a utility program for spinning-down external disks after a period of idle time. Since most external IDE disk enclosures don't support setting the IDE idle timer, a program like hd-idle is required to spin down idle disks automatically.
@@ -16,7 +19,7 @@ Many thanks to [Christina Mueller](https://sourceforge.net/u/cjmueller/profile/)
 
 First of all please read the word of cautions in the `hd-idle` **[documentation](http://hd-idle.sourceforge.net/)**.
 
-In order to set the disks in stand-by the container needs to be in privileged mode and the /dev path has to be forwarded to the container. Of course that could be a potential security risk. For me personally, I can live with it in my homelab setup.
+In order to set the disks in stand-by the container needs to be in `privileged` mode and the `/dev` path has to be forwarded to the container. Of course that could be a potential security risk. For me personally, I can live with it in my homelab setup.
 
 ## Run
 
@@ -43,9 +46,9 @@ docker run -d \
   tekgator/docker-hd-idle:latest
 ``` 
 
-On first start of the container it will create a config file in the provided volume. Make adjustments as described in the `hd-idle` [documentation](http://hd-idle.sourceforge.net/) and restart the container afterwards to apply the changes.
+On first start of the container it will create a config file in the provided volume. Make adjustments as described in the `hd-idle` **[documentation](http://hd-idle.sourceforge.net/)** and restart the container afterwards to apply the changes.
 
-#### Configuration option 2: Setting environment variables
+### Configuration option 2: Setting environment variables
 
 ```bash
 docker run -d \
@@ -59,18 +62,18 @@ docker run -d \
   tekgator/docker-hd-idle:latest
 ``` 
 
-Special configurations for certain disks can be made by utilizing environment variables. For each disk setting just increase the number on the variable, e.g. if you like to add a third disk to the config just add **DISK_ID3** and so on.
+Configurations for certain disks can be made by utilizing environment variables. For each disk setting just increase the number on the variable, e.g. if you like to add a third disk to the config just add **DISK_ID3** and so on.
 
-In this example we will create the following config:
-- Turn off stand-by for all disks by using **IDLE_TIME='0'**
-- Create a special stand-by rule for **DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711'** with stand-by time after 15 minutes by utilizting **IDLE_TIME1='900'**.
-- Create a special stand-by rule for **DISK_ID2='/dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712'** with stand-by time after 10 minutes as default time.
+In this example we are creating the following config:
+- Turn off stand-by for all disks by using `IDLE_TIME='0'`
+- Create a special stand-by rule for `DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711'` with stand-by time after 15 minutes by utilizting `IDLE_TIME1='900'`.
+- Create a special stand-by rule for `DISK_ID2='/dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712'` with stand-by time after 10 minutes as default time.
 
-#### Configuration option 3: Utilize config file and environment together
+### Configuration option 3: Utilize config file and environment together
 
 Just combine option 1 and 2 togehter. At first start up a config file is created in the mounted volume with the passed environment variables. Afterwards the config file can be adjusted to your needs. As mentioned already the config file will be parsed on container startup.
 
-### Use with docker-compose:
+## Use with docker-compose
 
 A [sample](docker-compose.yml) docker-compose file can be found within the repository. Also the [test cases](test) are worth a look.
 
