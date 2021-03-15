@@ -11,13 +11,23 @@ Bundle `hd-idle` application to run in a docker environment.
 
 The goal of this docker image is to make the use of `hd-idle` an easy. The configuration of the application can either be done via environment variables or via a config file in a mounted volume.
 
-For any configuartion topics concerning `hd-idle` I recommend visiting the **[Sourceforge page](http://hd-idle.sourceforge.net/)** of the project as you can find documentation there.
+## Implementations
 
-Many thanks to [Christina Mueller](https://sourceforge.net/u/cjmueller/profile/).
+The image implements the 2 available hd-idle versions:
+
+1. The Golang implementation by [Andoni del Olmo](https://github.com/adelolmo). The **[documentation](https://github.com/adelolmo/hd-idle)** and source code can be found on Github repository page.
+
+2. The orignal (legacy) implementation by [Christina Mueller](https://sourceforge.net/u/cjmueller/profile/). The **[documentation](http://hd-idle.sourceforge.net/)** can be found on the Sourceforge page. This version can be used by setting `LEGACY=1` environment variable. 
+
+For any configuartion topics concerning `hd-idle` I recommend visiting either project site.
+
+Many thanks to to both of them for this great tool!
+
+## Supported tags and respective `Dockerfile` links
+
+* [`1.2.0`, `latest`](https://github.com/tekgator/docker-hd-idle/blob/main/hd-idle/Dockerfile):  Golang version 1.13 and legacy version 1.05
 
 ## Word of cautions
-
-First of all please read the word of cautions in the `hd-idle` **[documentation](http://hd-idle.sourceforge.net/)**.
 
 In order to set the disks in stand-by the container needs to be in `privileged` mode and the `/dev` path has to be forwarded to the container. Of course that could be a potential security risk. For me personally, I can live with it in my homelab setup.
 
@@ -46,7 +56,7 @@ docker run -d \
   tekgator/docker-hd-idle:latest
 ``` 
 
-On first start of the container it will create a config file in the provided volume. Make adjustments as described in the `hd-idle` **[documentation](http://hd-idle.sourceforge.net/)** and restart the container afterwards to apply the changes.
+On first start of the container it will create a config file in the provided volume. Make adjustments as described in the `hd-idle` **documentation** and restart the container afterwards to apply the changes.
 
 ### Configuration option 2: Setting environment variables
 
@@ -58,6 +68,7 @@ docker run -d \
   -e IDLE_TIME='0' \ # Optional: set default stand-by for all disks, e.g. 0 for turn off
   -e DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711' \
   -e IDLE_TIME1='900' \ # Optional (default 600s): if disk is idle 900s go into stand-by
+  -e DISK_CMD1='ata' \ # Optional (default: scsi): which API to use to communicate with the device (not evaluated in legacy version)
   -e DISK_ID2='/dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712' \
   tekgator/docker-hd-idle:latest
 ``` 
@@ -66,16 +77,31 @@ Configurations for certain disks can be made by utilizing environment variables.
 
 In this example we are creating the following config:
 - Turn off stand-by for all disks by using `IDLE_TIME='0'`
-- Create a special stand-by rule for `DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711'` with stand-by time after 15 minutes by utilizting `IDLE_TIME1='900'`.
+- Create a special stand-by rule for `DISK_ID1='/dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711'` with stand-by time after 15 minutes by utilizting `IDLE_TIME1='900'`. To set the disk into stand-by the ATA command set is used `DISK_CMD1=ata`.
 - Create a special stand-by rule for `DISK_ID2='/dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712'` with stand-by time after 10 minutes as default time.
 
 ### Configuration option 3: Utilize config file and environment together
 
 Just combine option 1 and 2 togehter. At first start up a config file is created in the mounted volume with the passed environment variables. Afterwards the config file can be adjusted to your needs. As mentioned already the config file will be parsed on container startup.
 
+### Legacy version
+
+If you like to use the legacy hd-idle version you can achive this by setting the environment variable `LEGACY=1` like so:
+
+```bash
+docker run -d \
+  --name hd-idle \
+  --privileged \
+  -v /dev:/dev \
+  -e LEGACY='1' \
+  tekgator/docker-hd-idle:latest
+``` 
+
+**Note:** If you previously utilized the flags `-c` and `-s` from the Golang version it needs to be removed from the config. Otherwise legacy `hd-idle` will not start. But this can also be seen in the log.
+
 ## Use with docker-compose
 
-A [sample](docker-compose.yml) docker-compose file can be found within the repository. Also the [test cases](test) are worth a look.
+A [sample](docker-compose.yml) docker-compose file can be found within the repository. Also the [test cases](hd-idle/test) are worth a look.
 
 ```yml
   hd-idle:
@@ -83,8 +109,10 @@ A [sample](docker-compose.yml) docker-compose file can be found within the repos
     container_name: hd-idle
     privileged: true
     environment:
+      # LEGACY: 1    #uncomment to use legacy version of hd-idle
       IDLE_TIME: 0
       DISK_ID1: /dev/disk/by-uuid/994dffb1-96f0-4440-9ee1-4711
+      DISK_CMD1: ata
       IDLE_TIME1: 900
       DISK_ID2: /dev/disk/by-uuid/fa376393-91e4-4d9f-8914-4712
     volumes:
