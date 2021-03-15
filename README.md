@@ -25,7 +25,9 @@ Many thanks to to both of them for this great tool!
 
 ## Supported tags and respective `Dockerfile` links
 
-* [`1.2.0`, `latest`](https://github.com/tekgator/docker-hd-idle/blob/main/hd-idle/Dockerfile):  Golang version 1.13 and legacy version 1.05
+* [`1.2.0`, `latest`](https://github.com/tekgator/docker-hd-idle/blob/main/Dockerfile):  Golang version 1.13 and legacy version 1.05
+
+* [`dev`](https://github.com/tekgator/docker-hd-idle/blob/main/Dockerfile): Development build
 
 ## Word of cautions
 
@@ -101,7 +103,7 @@ docker run -d \
 
 ## Use with docker-compose
 
-A [sample](docker-compose.yml) docker-compose file can be found within the repository. Also the [test cases](hd-idle/test) are worth a look.
+A [sample](docker-compose.yml) docker-compose file can be found within the repository. Also the [test cases](test) are worth a look.
 
 ```yml
   hd-idle:
