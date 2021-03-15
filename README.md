@@ -1,9 +1,35 @@
 # docker-hd-idle
 
+<p>
+  <a href="https://hub.docker.com/r/tekgator/docker-hd-idle/tags?page=1&ordering=last_updated" alt="DockerBuildStatus">
+    <img src="https://img.shields.io/docker/cloud/build/tekgator/docker-hd-idle?style=for-the-badge" />
+  </a>
+  <a href="https://hub.docker.com/r/tekgator/docker-hd-idle" alt="DockerPulls">
+    <img src="https://img.shields.io/docker/pulls/tekgator/docker-hd-idle?style=for-the-badge" />
+  </a>
+  <a href="https://hub.docker.com/r/tekgator/docker-hd-idle/tags?page=1&ordering=last_updated" alt="DockerBuilds">
+    <img src="https://img.shields.io/docker/cloud/automated/tekgator/docker-hd-idle?style=for-the-badge" />
+  </a>
+  <a href="https://hub.docker.com/r/tekgator/docker-hd-idle/tags?page=1&ordering=last_updated" alt="DockerBuildStatus">
+    <img src="https://img.shields.io/docker/image-size/tekgator/docker-hd-idle/latest?style=for-the-badge" />
+  </a>
+  <a href="https://github.com/tekgator/docker-hd-idle/blob/main/LICENSE" alt="License">
+    <img src="https://img.shields.io/github/license/tekgator/docker-hd-idle?style=for-the-badge" />
+  </a>
+  <a href="https://github.com/tekgator/docker-hd-idle/releases" alt="Releases">
+    <img src="https://img.shields.io/github/v/release/tekgator/docker-hd-idle?style=for-the-badge" />
+  </a>
+</p>
+
 Bundle `hd-idle` application to run in a docker environment.
 
 - Maintained by [Patrick Weiss](https://github.com/tekgator)
 - Problems and issues can be filed on the [Github repository](https://github.com/tekgator/docker-hd-idle/issues)
+
+## buy-me-a-coffee
+Like some of my work? Buy me a coffee ☕ (or more likely a beer 🍺, or even more likly shoes 👠 or purse 👜 for the wify 😄)
+
+<a href="https://www.buymeacoffee.com/tekgator" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 ## Description
 
