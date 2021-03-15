@@ -3,9 +3,11 @@ version: "3"
 services:
 
   hd-idle:
-    build: ..
+    build: ../..
     container_name: hd-idle
     privileged: true
+    environment:
+      # LEGACY: 1    #uncomment to use legacy version of hd-idle
     volumes:
       - /dev:/dev
       - ./config:/config
