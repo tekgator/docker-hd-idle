@@ -48,7 +48,7 @@ Many thanks to to both of them for this great tool!
 
 ## Supported tags and respective `Dockerfile` links
 
-* [`1.2.1`, `latest`](https://github.com/tekgator/docker-hd-idle/blob/main/Dockerfile):  Golang version 1.13 and legacy version 1.05
+* [`1.2.2`, `latest`](https://github.com/tekgator/docker-hd-idle/blob/main/Dockerfile):  Golang version 1.13 and legacy version 1.05
 
 * [`dev`](https://github.com/tekgator/docker-hd-idle/blob/main/Dockerfile): Development build
 
