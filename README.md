@@ -1,14 +1,11 @@
 # docker-hd-idle
 
 <p>
-  <a href="https://hub.docker.com/r/tekgator/docker-hd-idle/tags?page=1&ordering=last_updated" alt="DockerBuildStatus">
-    <img src="https://img.shields.io/docker/cloud/build/tekgator/docker-hd-idle" />
+  <a href="https://github.com/tekgator/docker-hd-idle/actions/workflows/build-and-publish.yml" alt="BuildStatus">
+    <img src="https://img.shields.io/github/workflow/status/tekgator/docker-hd-idle/Publish%20Docker%20image" />
   </a>
   <a href="https://hub.docker.com/r/tekgator/docker-hd-idle" alt="DockerPulls">
     <img src="https://img.shields.io/docker/pulls/tekgator/docker-hd-idle" />
-  </a>
-  <a href="https://hub.docker.com/r/tekgator/docker-hd-idle/tags?page=1&ordering=last_updated" alt="DockerBuilds">
-    <img src="https://img.shields.io/docker/cloud/automated/tekgator/docker-hd-idle" />
   </a>
   <a href="https://hub.docker.com/r/tekgator/docker-hd-idle/tags?page=1&ordering=last_updated" alt="DockerBuildStatus">
     <img src="https://img.shields.io/docker/image-size/tekgator/docker-hd-idle/latest" />
@@ -51,7 +48,7 @@ Many thanks to to both of them for this great tool!
 
 ## Supported tags and respective `Dockerfile` links
 
-* [`1.2.0`, `latest`](https://github.com/tekgator/docker-hd-idle/blob/main/Dockerfile):  Golang version 1.13 and legacy version 1.05
+* [`1.2.1`, `latest`](https://github.com/tekgator/docker-hd-idle/blob/main/Dockerfile):  Golang version 1.13 and legacy version 1.05
 
 * [`dev`](https://github.com/tekgator/docker-hd-idle/blob/main/Dockerfile): Development build
 
